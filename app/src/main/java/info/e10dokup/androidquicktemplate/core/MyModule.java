@@ -1,9 +1,10 @@
-package info.e10dokup.slidecontroller.core;
+package info.e10dokup.androidquicktemplate.core;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
 import dagger.Module;
+import dagger.Provides;
 
 /**
  * Created by e10dokup on 2015/10/09
