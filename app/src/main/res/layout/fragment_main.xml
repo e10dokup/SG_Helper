@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/layout_controll"
+        android:layout_above="@+id/layout_page">
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/btn_start"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="はじめる"
+            app:bootstrapSize="lg"
+            app:roundedCorners="true"
+            app:bootstrapBrand="primary"
+            android:layout_margin="10dp"
+            android:layout_weight="1"/>
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/btn_finish"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="おわる"
+            app:bootstrapSize="lg"
+            app:roundedCorners="true"
+            app:bootstrapBrand="primary"
+            android:layout_margin="10dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/layout_page"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/btn_left"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="もどる"
+            app:bootstrapSize="lg"
+            app:roundedCorners="true"
+            app:bootstrapBrand="primary"
+            android:layout_margin="10dp"
+            android:layout_weight="1"/>
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/btn_right"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="すすむ"
+            app:bootstrapSize="lg"
+            app:roundedCorners="true"
+            app:bootstrapBrand="primary"
+            android:layout_margin="10dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

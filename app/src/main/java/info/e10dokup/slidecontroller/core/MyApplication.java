@@ -1,4 +1,4 @@
-package info.e10dokup.androidquicktemplate.core;
+package info.e10dokup.slidecontroller.core;
 
 import android.app.Application;
 

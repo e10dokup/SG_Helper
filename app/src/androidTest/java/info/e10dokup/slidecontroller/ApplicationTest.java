@@ -1,4 +1,4 @@
-package info.e10dokup.androidquicktemplate;
+package info.e10dokup.slidecontroller;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

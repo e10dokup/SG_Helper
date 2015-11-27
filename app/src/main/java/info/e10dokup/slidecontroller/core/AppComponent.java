@@ -1,7 +1,7 @@
-package info.e10dokup.androidquicktemplate.core;
+package info.e10dokup.slidecontroller.core;
 
 import dagger.Component;
-import info.e10dokup.androidquicktemplate.MainActivity;
+import info.e10dokup.slidecontroller.MainActivity;
 
 @Component(
         modules = MyModule.class
