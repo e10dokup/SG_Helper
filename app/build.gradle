@@ -102,4 +102,6 @@ dependencies {
     compile "com.squareup.okhttp:okhttp-urlconnection:2.4.0"
 
     compile "com.squareup.retrofit:retrofit:1.9.0"
+    compile 'com.beardedhen:androidbootstrap:2.0.0'
+    compile 'com.uxxu.konashi:konashi-android-sdk:1.0.1'
 }

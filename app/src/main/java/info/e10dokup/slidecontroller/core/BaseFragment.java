@@ -1,4 +1,4 @@
-package info.e10dokup.androidquicktemplate.core;
+package info.e10dokup.slidecontroller.core;
 
 import android.support.v4.app.Fragment;
 
