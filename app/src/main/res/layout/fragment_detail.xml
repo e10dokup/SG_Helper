@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:fillViewport="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <android.support.v7.widget.CardView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardCornerRadius="0dp"
+            android:layout_margin="10dp"
+            android:id="@+id/card_detail">
+
+            <!-- カードに載せる情報 -->
+
+            <RelativeLayout
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/card_relative"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="たいとる"
+                    android:textStyle="bold"
+                    android:id="@+id/text_name_detail"
+                    android:textSize="18dp"/>
+                
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey_400"
+                    android:layout_below="@+id/text_name_detail"
+                    android:layout_marginTop="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="hoge"
+                    android:textSize="12sp"
+                    android:id="@+id/text_speaker_detail"
+                    android:layout_below="@+id/text_name_detail"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="どこか"
+                    android:textSize="12sp"
+                    android:id="@+id/text_room_detail"
+                    android:layout_below="@+id/text_speaker_detail"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Start:2015/12/19 16:30:00"
+                    android:textSize="12sp"
+                    android:id="@+id/text_start_detail"
+                    android:layout_below="@+id/text_room_detail"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="5dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_description"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:id="@+id/text_label_description_detail"
+                    android:layout_below="@+id/text_start_detail"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/text_description_detail"
+                    android:text="hogehogehogehogehogehogehogehogehogehogehogehogehogehoge"
+                    android:textSize="10sp"
+                    android:layout_below="@+id/text_label_description_detail"
+                    android:layout_marginTop="5dp"/>
+
+                <com.beardedhen.androidbootstrap.BootstrapButton
+                    android:id="@+id/btn_add_calendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/label_btn_add_calendar"
+                    app:bootstrapSize="lg"
+                    app:roundedCorners="true"
+                    app:bootstrapBrand="primary"
+                    android:layout_below="@+id/text_description_detail"
+                    android:layout_marginTop="30dp"/>
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+    </ScrollView>
+
+</RelativeLayout>

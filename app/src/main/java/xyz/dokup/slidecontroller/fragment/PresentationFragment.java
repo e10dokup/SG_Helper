@@ -1,4 +1,4 @@
-package info.e10dokup.slidecontroller.fragment;
+package xyz.dokup.slidecontroller.fragment;
 
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.os.Bundle;
@@ -6,31 +6,40 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.beardedhen.androidbootstrap.BootstrapButton;
+import com.beardedhen.androidbootstrap.BootstrapProgressBar;
 import com.uxxu.konashi.lib.Konashi;
 import com.uxxu.konashi.lib.KonashiListener;
 import com.uxxu.konashi.lib.KonashiManager;
 
 import org.jdeferred.DoneCallback;
-import org.jdeferred.FailCallback;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import info.e10dokup.slidecontroller.R;
-import info.e10dokup.slidecontroller.core.BaseFragment;
+import xyz.dokup.slidecontroller.R;
+import xyz.dokup.slidecontroller.core.BaseFragment;
+import xyz.dokup.slidecontroller.core.MyApplication;
+import xyz.dokup.slidecontroller.helper.PresentationHelper;
+import xyz.dokup.slidecontroller.view.InverseTriangleView;
+import xyz.dokup.slidecontroller.view.TriangleView;
 import info.izumin.android.bletia.BletiaException;
 
 /**
  * Created by e10dokup on 2015/11/26
  **/
-public class MainFragment extends BaseFragment {
-    private static final String TAG = MainFragment.class.getSimpleName();
-    private final MainFragment self = this;
+public class PresentationFragment extends BaseFragment implements View.OnClickListener {
+    private static final String TAG = PresentationFragment.class.getSimpleName();
+    private final PresentationFragment self = this;
 
     private KonashiManager mKonashiManager;
+
+    @Inject
+    PresentationHelper mPresentationHelper;
 
     @Bind(R.id.btn_left)
     BootstrapButton mLeftButton;
@@ -40,18 +49,43 @@ public class MainFragment extends BaseFragment {
     BootstrapButton mStartButton;
     @Bind(R.id.btn_finish)
     BootstrapButton mFinishButton;
+    @Bind(R.id.increment_minutes)
+    InverseTriangleView mMinutesIncrement;
+    @Bind(R.id.decrement_minutes)
+    TriangleView mMinutesDecrement;
+    @Bind(R.id.increment_seconds)
+    InverseTriangleView mSecondsIncrement;
+    @Bind(R.id.decrement_seconds)
+    TriangleView mSecondsDecrement;
+    @Bind(R.id.progress_timer)
+    BootstrapProgressBar mProgressBar;
+    @Bind(R.id.text_timer)
+    TextView mTimerText;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_presentation, container, false);
+
+        { // Inject values
+            MyApplication app = (MyApplication) getBaseActivity().getApplication();
+            app.getComponent().inject(this);
+        }
 
         ButterKnife.bind(this, view);
+        setOnClickListeners();
 
         mKonashiManager = new KonashiManager(getBaseActivity());
         mKonashiManager.find(getBaseActivity());
 
         return view;
+    }
+
+    private void setOnClickListeners() {
+        mMinutesIncrement.setOnClickListener(this);
+        mMinutesDecrement.setOnClickListener(this);
+        mSecondsIncrement.setOnClickListener(this);
+        mSecondsDecrement.setOnClickListener(this);
     }
 
     @Override
@@ -104,19 +138,7 @@ public class MainFragment extends BaseFragment {
         @Override
         public void onConnect(KonashiManager manager) {
             refreshViews();
-            mKonashiManager.uartMode(Konashi.UART_ENABLE)
-                    .then(new DoneCallback<BluetoothGattCharacteristic>() {
-                        @Override
-                        public void onDone(BluetoothGattCharacteristic result) {
-                            mKonashiManager.uartBaudrate(Konashi.UART_RATE_9K6);
-                        }
-                    })
-                    .fail(new FailCallback<BletiaException>() {
-                        @Override
-                        public void onFail(BletiaException result) {
-                            Toast.makeText(getBaseActivity(), result.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
+            mKonashiManager.pinModeAll(0xFF);
         }
 
         @Override
@@ -145,46 +167,59 @@ public class MainFragment extends BaseFragment {
         }
     };
 
-    @OnClick(R.id.btn_left)
-    public void onClickLeftButton() {
-        mKonashiManager.uartWrite("l".getBytes())
-                .then(new DoneCallback<BluetoothGattCharacteristic>() {
-                    @Override
-                    public void onDone(BluetoothGattCharacteristic result) {
-
-                    }
-                });
-    }
-
-    @OnClick(R.id.btn_right)
-    public void onClickRightButton() {
-        mKonashiManager.uartWrite("r".getBytes())
-                .then(new DoneCallback<BluetoothGattCharacteristic>() {
-                    @Override
-                    public void onDone(BluetoothGattCharacteristic result) {
-
-                    }
-                });
-    }
-
     @OnClick(R.id.btn_start)
     public void onClickStartButton() {
-        mKonashiManager.uartWrite("s".getBytes())
-                .then(new DoneCallback<BluetoothGattCharacteristic>() {
-                    @Override
-                    public void onDone(BluetoothGattCharacteristic result) {
-
-                    }
-                });
+        pinSwitching(Konashi.PIO0);
+        if(!mPresentationHelper.isStarted()) {
+            mPresentationHelper.startTimer(mTimerText, mProgressBar);
+        } else {
+            mPresentationHelper.cancelTimer();
+        }
     }
 
     @OnClick(R.id.btn_finish)
     public void onClickFinishButton() {
-        mKonashiManager.uartWrite("q".getBytes())
+        pinSwitching(Konashi.PIO1);
+        if(mPresentationHelper.isStarted()) {
+            mPresentationHelper.cancelTimer();
+        }
+    }
+
+    @OnClick(R.id.btn_left)
+    public void onClickLeftButton() {
+        pinSwitching(Konashi.PIO2);
+    }
+
+    @OnClick(R.id.btn_right)
+    public void onClickRightButton() {
+        pinSwitching(Konashi.PIO3);
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.increment_minutes:
+                mPresentationHelper.setMinutes(mPresentationHelper.getMinutes() + 1);
+                break;
+            case R.id.decrement_minutes:
+                mPresentationHelper.setMinutes(mPresentationHelper.getMinutes() - 1);
+                break;
+            case R.id.increment_seconds:
+                mPresentationHelper.setSeconds(mPresentationHelper.getSeconds() + 1);
+                break;
+            case R.id.decrement_seconds:
+                mPresentationHelper.setSeconds(mPresentationHelper.getSeconds() - 1);
+                break;
+        }
+        mPresentationHelper.setTimerText(mTimerText);
+    }
+
+    private void pinSwitching(final int pin) {
+        mKonashiManager.digitalWrite(pin, Konashi.HIGH)
                 .then(new DoneCallback<BluetoothGattCharacteristic>() {
                     @Override
                     public void onDone(BluetoothGattCharacteristic result) {
-
+                        mKonashiManager.digitalWrite(pin, Konashi.LOW);
                     }
                 });
     }

@@ -3,7 +3,7 @@ apply plugin: 'com.neenbedankt.android-apt'
 
 def VERSION_CODE = 1
 def VERSION_NAME = "1.0.0"
-def PACKAGE_NAME = "info.e10dokup.example"
+def PACKAGE_NAME = "xyz.dokup.slidecontroller"
 def MIN_SDK_VERSION = 18
 def TARGET_SDK_VERSION = 22
 
@@ -84,6 +84,7 @@ dependencies {
     compile "com.android.support:design:${supportPackageVersion}"
     compile "com.android.support:percent:${supportPackageVersion}"
     compile "com.android.support:support-annotations:${supportPackageVersion}"
+    compile "com.android.support:cardview-v7:+"
 
     compile "com.jakewharton:butterknife:7.0.1"
     apt "com.jakewharton:butterknife:7.0.1"
@@ -92,16 +93,14 @@ dependencies {
     compile 'com.google.dagger:dagger:2.0'
     compile 'org.glassfish:javax.annotation:10.0-b28'
 
-    compile "net.vvakame:jsonpullparser-core:1.6.2"
-    apt "net.vvakame:jsonpullparser-apt:1.6.2"
-
     compile "de.greenrobot:eventbus:2.4.0"
 
     compile "com.squareup.okio:okio:1.5.0"
     compile "com.squareup.okhttp:okhttp:2.4.0"
     compile "com.squareup.okhttp:okhttp-urlconnection:2.4.0"
 
-    compile "com.squareup.retrofit:retrofit:1.9.0"
+    compile "com.squareup.retrofit:retrofit:2.0.0-beta2"
+    compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
     compile 'com.beardedhen:androidbootstrap:2.0.0'
     compile 'com.uxxu.konashi:konashi-android-sdk:1.0.1'
 }

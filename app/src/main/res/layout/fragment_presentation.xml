@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00 : 00"
+        android:textSize="60sp"
+        android:id="@+id/text_timer"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"/>
+
+    <xyz.dokup.slidecontroller.view.TriangleView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/decrement_minutes"
+        app:fill_color="@color/triangle"
+        app:stroke_color="@color/triangle"
+        android:layout_marginStart="10dp"
+        android:layout_below="@+id/text_timer"
+        android:layout_alignStart="@+id/text_timer"/>
+
+    <xyz.dokup.slidecontroller.view.TriangleView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/decrement_seconds"
+        app:fill_color="@color/triangle"
+        app:stroke_color="@color/triangle"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@+id/text_timer"
+        android:layout_alignEnd="@+id/text_timer"/>
+
+    <xyz.dokup.slidecontroller.view.InverseTriangleView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/increment_minutes"
+        app:fill_color="@color/triangle"
+        app:stroke_color="@color/triangle"
+        android:layout_marginBottom="70dp"
+        android:layout_alignBottom="@+id/text_timer"
+        android:layout_alignStart="@+id/decrement_minutes"/>
+
+    <xyz.dokup.slidecontroller.view.InverseTriangleView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/increment_seconds"
+        app:fill_color="@color/triangle"
+        app:stroke_color="@color/triangle"
+        android:layout_alignTop="@+id/increment_minutes"
+        android:layout_alignStart="@+id/decrement_seconds"/>
+
+    <com.beardedhen.androidbootstrap.BootstrapProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="80dp"
+        android:id="@+id/progress_timer"
+        app:animated="true"
+        app:bootstrapBrand="primary"
+        app:progress="0"
+        app:striped="true"
+        android:layout_below="@+id/text_timer"
+        android:layout_centerHorizontal="true"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/layout_controll"
+        android:layout_above="@+id/layout_page">
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/btn_start"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="@string/label_btn_start"
+            app:bootstrapSize="lg"
+            app:roundedCorners="true"
+            app:bootstrapBrand="primary"
+            android:layout_margin="10dp"
+            android:layout_weight="1"/>
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/btn_finish"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="@string/label_btn_finish"
+            app:bootstrapSize="lg"
+            app:roundedCorners="true"
+            app:bootstrapBrand="primary"
+            android:layout_margin="10dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/layout_page"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/btn_left"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="@string/label_btn_previous"
+            app:bootstrapSize="lg"
+            app:roundedCorners="true"
+            app:bootstrapBrand="primary"
+            android:layout_margin="10dp"
+            android:layout_weight="1"/>
+
+        <com.beardedhen.androidbootstrap.BootstrapButton
+            android:id="@+id/btn_right"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="@string/label_btn_next"
+            app:bootstrapSize="lg"
+            app:roundedCorners="true"
+            app:bootstrapBrand="primary"
+            android:layout_margin="10dp"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+</RelativeLayout>
